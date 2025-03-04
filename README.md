@@ -1,38 +1,18 @@
-# sv
+With beta-26 I don't understand how to use `strategy: ['url', 'preferredLanguage'],`. I want the locale to always be included in the url and to take precedence over the preferredLanguage strategy (`https://mysite.com/en/path`, same for `de`), but if there is no locale in the url, then I want the user to be redirected to the preferredLanguage url. I have set my browser favorite language as `de` but I am always redirected to `en` (baseLocale) with the following config:
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+```js
+paraglideVitePlugin({
+    // [...]
+    strategy: ['url', 'preferredLanguage'],
+    urlPatterns: [
+        {
+            pattern: ':protocol://:domain(.*)::port?/:locale(en|de)?/:path(.*)?',
+            deLocalizedNamedGroups: { locale: null },
+            localizedNamedGroups: {
+                en: { locale: 'en' },
+                de: { locale: 'de' }
+            }
+        }
+    ]
+}),
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
