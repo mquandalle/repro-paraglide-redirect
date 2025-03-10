@@ -10,12 +10,11 @@ export default defineConfig({
       strategy: ["url", "preferredLanguage"],
       urlPatterns: [
         {
-          pattern: ":protocol://:domain(.*)::port?/:locale(en|de)?/:path(.*)?",
-          deLocalizedNamedGroups: { locale: null },
-          localizedNamedGroups: {
-            en: { locale: "en" },
-            de: { locale: "de" },
-          },
+          pattern: "/:path(.*)?",
+          localized: [
+            ["en", "/en/:path(.*)?"],
+            ["de", "/de/:path(.*)?"],
+          ],
         },
       ],
     }),
