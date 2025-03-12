@@ -1,7 +1,6 @@
 <script>
-    import { m } from "../paraglide/messages";
+  import { m } from "../paraglide/messages";
+  import { localizeHref } from "../paraglide/runtime";
 </script>
 
-<h1>{m.example_message()}</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
-
+<a href={localizeHref("/lang-from-server")}>Lang from server</a>
